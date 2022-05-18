@@ -1,15 +1,28 @@
 <template>
-<TheNavigaion />
+  <TheNavigation />
   <div class="container">
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" :key="$route.path"></component>
+      </transition>
+    </router-view>
   </div>
 </template>
 
 <script>
-import TheNavigaion from "@/components/TheNavigation.vue";
+import TheNavigation from "@/components/TheNavigation.vue";
 export default {
-  components: { TheNavigaion },
+  components: { TheNavigation },
 };
 </script>
 
-
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
